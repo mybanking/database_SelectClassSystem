@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Classroom</title>
+    <link rel="stylesheet" href="..css/selected_classroom.css" type="text/css">
+    <script type="text/javascript" src="../js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="../js/selected_classroom.js"></script>
+
+    <script>
+        window.onload=function () {
+            // //返回本学年申请教室的所有情况
+            // data=[{
+            //     classroom:"SY101", //格式
+            //     week:"week 1 MOnday",
+            //     start_time:"1",
+            //     end_time:"2",
+            //     id:"17301066",
+            //     information:"借用",
+            //     state:"未审核",
+            //
+            // },
+            //     {
+            //         classroom:"SY101", //格式
+            //         week:"week 1 MOnday",
+            //         start_time:"1",
+            //         end_time:"2",
+            //         id:"17301066",
+            //         information:"借用",
+            //         state:"未审核",
+            //
+            //     }]
+            // auto_create_table_selected_classroom(data);
+
+            data_1 = [{
+                year: "2019",//此学生所有年份降序排列
+                semster: "Spring"
+            },
+                {
+                    year: "2018",
+                    semster: "Fall"
+                }];
+            var select=$("#year");
+            for (var j = 0; j < data_1.length; j++) {
+                //排序，从降序
+                //alert(data_1[j].year);
+                select.append("<option style='font-size: 1em' value=" + j + ">" + data_1[j].year + "/" + data_1[j].semster + "</option>");
+            }//选择下拉框
+            select.val(0);
+            var json= {Id: $.getUrlParam("id"), type: $.getUrlParam("type")};
+            $.ajax({
+                type: "post",
+                url: "/load_classroom_year",
+                data: JSON.stringify(json),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (data_1, status) {
+                    //追加下拉框
+                    for (var j = 0; j < data_1.length; j++) {
+                        //排序，从降序
+                        //alert(data_1[j].year);
+                        select.append("<option style='font-size: 1em' value=" + j + ">" + data_1[j].year + "/" + data_1[j].semster + "</option>");
+                    }//选择下拉框
+                    select.val(0);
+
+                }
+            });
+
+            var json= {Id: $.getUrlParam("id"), type: $.getUrlParam("type")};
+            $.ajax({
+                type: "post",
+                url: "/load_selected_classroom",
+                data: JSON.stringify(json),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (data, status) {
+                   auto_create_table_selected_classroom(data);
+                }
+            });
+
+        }
+    </script>
+
+</head>
+<body>
+
+<!--顶部开始-->
+<div id="c" class="">
+    <div id="head">
+        <div id="home_head">
+            <p id="home_head_name">17301066 孔德焱</p>
+        </div>
+        <div id="home_search" >
+            <ul>
+                <li><img src="../static/images/logo.png" height="50px" style="padding: 2px;"></li>
+                <li><a class="s" href="Home.html">主页</a></li>
+                <li><a class="s" href="course.html">课程</a></li>
+                <li><a class="s" href="select_course.html">选课系统</a></li>
+                <li><a class="s" href="Classroom.html">教室资源</a></li>
+                <li><a class="s" href="Project.html">项目管理</a></li>
+                <li><a class="s" href="Award.html">奖学金申请</a></li>
+                <li><a class="s" href="Information.html">个人信息</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <hr>
+
+    <div id="l"  class="">
+        <div id="l_1"  class="">
+            <div id="l_1_1" class="">
+                &nbsp
+                <b id="l_1_1_1">Welcome,Tom </b>
+            </div>
+            <div id="l_1_2" class="">
+                &nbsp
+                <b id="l_1_2_1">Service</b> <hr>
+                <u id="l_1_2_2">
+                    <li > <a class="l_select"  href="Classroom.html" >教室占用情况</a></li> <hr>
+                    <li ><a class="l_select"  href="#">已申请教室</a></li> <hr>
+                </u>
+            </div>
+        </div>
+    </div>
+    <div id="r"  class="">
+        <div id="r_1"  class="">
+            <div id="r_1_1" class="">
+                &nbsp
+                <b id="r_1_1_1">ClassRoom Taken information</b>
+
+            </div>
+            <div id="r_1_2" class="">
+                <b class="time" >年份:</b>
+                <select style="font-size: 0.5em" id="year">
+
+                </select>&emsp;&emsp;
+                <b class="time">周次:</b>
+                <select style="font-size: 0.5em" id="week">
+                    <option style="font-size: 1em" value="0"> 全部</option>
+                    <option style="font-size: 1em" value="1">  week 1</option>
+                    <option style="font-size:1em"  value="2">  week 2</option>
+                    <option style="font-size: 1em"  value="3"> week 3 </option>
+                    <option  style="font-size: 1em" value="4">week 4</option>
+                    <option  style="font-size: 1em" value="4">  week 5</option>
+                    <option  style="font-size: 1em" value="4">  week 6</option>
+                    <option  style="font-size: 1em" value="4"> week 7 </option>
+                    <option  style="font-size: 1em" value="4">week  8 </option>
+                    <option  style="font-size: 1em" value="4"> week 9 </option>
+                    <option  style="font-size: 1em" value="4">week  10 </option>
+                    <option  style="font-size: 1em" value="4"> week 11 </option>
+                    <option  style="font-size: 1em" value="4">  week 12</option>
+                    <option  style="font-size: 1em" value="4"> week 13 </option>
+                    <option  style="font-size: 1em" value="4"> week 14 </option>
+                    <option  style="font-size: 1em" value="4">  week 15</option>
+                    <option  style="font-size: 1em" value="4">  week 16</option>
+                    <option  style="font-size: 1em" value="4"> week 17 </option>
+                    <option  style="font-size: 1em" value="4"> week 18 </option>
+                    <option  style="font-size: 1em" value="4"> week 19 </option>
+                    <option  style="font-size: 1em" value="4"> week 20 </option>
+
+                </select>&emsp;&emsp;
+                <b class="time">教学楼:</b>
+                <select style="font-size: 0.5em" id="building">
+                    <option style="font-size: 1em" value="0"> 全部</option>
+                    <option style="font-size: 1em" value="1"> SY</option>
+                    <option style="font-size:1em"  value="2"> YF</option>
+                    <option style="font-size: 1em"  value="3">SD</option>
+                    <option  style="font-size: 1em" value="4"> SX</option>
+                </select>&emsp;&emsp;
+                <b class="time">教室编号:</b>
+                <input  type="text" placeholder="classroom number" id="classroom_number" >  &nbsp
+                <input type="button"  value="Search" id="search" onclick="Search_selected_classroom();"/>
+            </div>
+            <div id="r_1_3" class="">
+
+                <table  id="senfe";width="100%"  border="1"  cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+                    <thead>
+                    <tr >
+                        <td class="t_row_1">教室</td>
+                        <td class="t_row_1"  >申请时间</td>
+                        <td class="t_row_1">开始时间</td>
+                        <td class="t_row_1" >结束时间</td>
+                        <td class="t_row_1" >申请人</td>
+                        <td class="t_row_1"  >申请原因</td>
+                        <td class="t_row_1"  >申请状态</td>
+                        <td class="t_row_1"  >操作</td>
+                    </tr>
+                    </thead>
+                    <tbody id="group_one">
+                    </tbody>
+                </table>
+                <div id="r_4">
+                    <button class="a_1" type="button" id="firstPage">首 页</button>
+                    <button class="a_1"  type="button" id="prePage">上一页</button>
+                    <button class="a_1" type="button" id="nextPage">下一页</button>
+                    <button class="a_1" type="button" id="lastPage">末 页</button>
+                    第<h id="currentPage" class="a_1" ></h>页/共<h id="total_page" class="a_1"></h>页
+                    &nbsp&nbsp第
+                    <input class="a_1" id="aim_page" value="1" style="width:20px"/>&nbsp页
+                    <button class="a_1" type="button" id="jump">跳转</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+
+</html>
+

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生管理系统</title>
+    <link rel="stylesheet" href="../css/login.css" type="text/css">
+    <script type="text/javascript" src="../js/login.js"></script>
+    <script type="text/javascript" src="../js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="../js/config.js"></script>
+</head>
+<body>
+<!-- 顶部开始-->
+
+<div class="top">
+    <div id="logo"> <img src="../images/logo.png" alt="logo" width="90px" height="90px">  </div>
+    <div id="logo_name"><b id="logo_name_t">学生管理系统</b></div>
+    <div id="login_zy"><b id="login_zy_t" >登陆主页</b></div>
+</div>
+<hr class="hr_1">
+<!-- 顶部结束-->
+<!-- 中部开始-->
+<div class="center" >
+    <div id="center_img"><img src="../images/zy_center.png" alt="中间图片"  width="500px" height="350px">  </div>
+    <div id="messgge">
+        <div id="title" ><b id="title_t">校园信息门户</b></div>
+
+        <div id="form_1">
+            <form name="Person" height = "350" width = "400" onsubmit="return onSmText();" >
+                <br> <br>
+                用户名:<input id="user" type = "text" style="font-family: 'Microsoft YaHei';font-size: 15px;font-weight: normal">&nbsp&nbsp<b id="tip_1" style="display: none;font-size: 20px;color: #b31b1b">必填</b> <br><br>
+                密&nbsp&nbsp&nbsp码:<input id="psw" type="password" style="font-family: 'Microsoft YaHei';font-size: 15px;font-weight: normal">&nbsp&nbsp<b id="tip_2" style="display: none;font-size: 20px;color: #b31b1b">必填</b>
+                <br><br>
+                身份:<input type = "radio" name = "a" value = "manager">管理员
+                <input type = "radio" name = "a" value = "teacher">教师
+                <input type = "radio" name = "a" value = "student">学生
+                <br><b id="tip_3" style="display: none;font-size: 20px;color: #b31b1b">必选</b><br></br></br>
+                <input type = "submit" value = "登陆" id="sumit_1">&nbsp&nbsp&nbsp
+                <a href="http://localhost:8080/login/user"  style="text-decoration:none;"><b id="foget_psw">忘记密码？</b></a>
+                </br>
+            </form>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

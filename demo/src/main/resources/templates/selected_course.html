@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选课</title>
+    <link rel="stylesheet" href="../css/selected_coursetable.css" type="text/css">
+    <script type="text/javascript" src="../js/selected_courseTable.js"></script>
+    <script type="text/javascript" src="../js/jquery-3.4.1.js"></script>
+
+
+    <script>
+        window.onload = function(){
+            // data= [//返回选课已选课程
+            //     {courseName:"数据库",
+            //         teacherName: "王方石",
+            //         year: "2019",//本学年课表
+            //         semster: "Spring",
+            //         week_data: "1",
+            //         time: "1",
+            //         building: "SY",
+            //         classroom: "101",
+            //         startWeek: "1",
+            //         deadWeek: "16"
+            //     }, {
+            //         courseName:"数据库",
+            //         teacherName: "王方石",
+            //         year: "2018",//本学年课表
+            //         semster: "Fall",
+            //         week_data: "1",
+            //         time: "2",
+            //         building: "SY",
+            //         classroom: "101",
+            //         startWeek: "1",
+            //         deadWeek: "16"
+            //     }
+            //
+            // ];
+            //
+
+            var json= {Id: $.getUrlParam("id"), type: $.getUrlParam("type")};
+            $.ajax({
+                type: "post",
+                url: "/load_classroom_year",
+                data: JSON.stringify(json),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (data_1, status) {
+                    //追加下拉框
+                    for (var j = 0; j < data_1.length; j++) {
+                        //排序，从降序
+                        //alert(data_1[j].year);
+                        select.append("<option style='font-size: 1em' value=" + j + ">" + data_1[j].year + "/" + data_1[j].semster + "</option>");
+                    }//选择下拉框
+                    select.val(0);
+                }
+            });
+
+            var json= {Id: $.getUrlParam("id"), type: $.getUrlParam("type")};
+            $.ajax({
+                type: "post",
+                url: "/load_selected_courseTable",
+                data: JSON.stringify(json),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (data_1, status) {
+                    load_selected_courseTable(data);
+                }
+            });
+
+        }
+    </script>
+</head>
+<body>
+
+<!--顶部开始-->
+<div id="c" class="">
+    <div id="head">
+        <div id="home_head">
+            <p id="home_head_name">17301066 孔德焱</p>
+        </div>
+        <div id="home_search" >
+            <ul>
+                <li><img src="../static/images/logo.png" height="50px" style="padding: 2px;"></li>
+                <li><a class="s" href="Home.html">主页</a></li>
+                <li><a class="s" href="course.html">课程</a></li>
+                <li><a class="s" href="select_course.html">选课系统</a></li>
+                <li><a class="s" href="Classroom.html">教室资源</a></li>
+                <li><a class="s" href="Project.html">项目管理</a></li>
+                <li><a class="s" href="Award.html">奖学金申请</a></li>
+                <li><a class="s" href="Information.html">个人信息</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <hr>
+
+    <div id="l"  class="">
+        <div id="l_1"  class="">
+            <div id="l_1_1" class="">
+                &nbsp
+                <b id="l_1_1_1">Welcome,Tom </b>
+            </div>
+            <div id="l_1_2" class="">
+                &nbsp
+                <b id="l_1_2_1">Service </b> <hr>
+                <u id="l_1_2_2">
+
+                    <li > <a class="l_select"  href="select_course.html" >选课</a></li> <hr>
+                    <li ><a class="l_select"  href="#" >选课课表</a></li> <hr>
+                </u>
+            </div>
+        </div>
+    </div>
+
+    <div id="r"  class="" >
+        <div id="r_1"  class="">
+            <div id="r_1_1" class="">
+                &nbsp
+                <b id="r_1_1_1">My CourseSchedule</b>
+
+            </div>
+            <div id="r_1_2" class="" style="overflow-y: scroll">
+                <select id="course_year" style="font-size: 0.5em">
+
+                </select>
+                <button type="button"  id="search_1" onclick="searchCourseTable();">查询</button>
+
+                <table id="courseTable" width="100%" height=450px border="1"  cellpadding="0" cellspacing="0" style="border-collapse:collapse;">
+
+
+                    <caption><strong class="t_row_0">2012软件工程班课程表</strong></caption>
+                    <tr>
+                        <td class="time_1">Time</td><td class="time_1">Monday</td>
+                        <td class="time_1">Tuesday</td><td class="time_1">Wednesday</td>
+                        <td class="time_1">Thursday</td><td class="time_1">Friday</td>
+                        <td class="time_1">Saturday</td><td class="time_1">Sunday</td>
+                    </tr>
+                    <tr >
+                        <td  class="time"><br>第一节<br>8:00-9:50<br><br></td><td class="t_row_2"></td>
+                        <td class="t_row_2" ></td>
+                        <td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                    </tr>
+                    <tr>
+                        <td  class="time"><br>第二节<br>10:10-12:00<br><br><br></td><td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                    </tr>
+                    <tr>
+                        <td class="time"><br>第三节<br>12:10-14:00<br><br></td><td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                    </tr>
+                    <tr>
+                        <td  class="time"><br>第四节<br>14:10-16:00<br><br></td><td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                    </tr>
+                    <tr>
+                        <td  class="time"><br>第五节<br>16:20-18:00<br><br></td><td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                    </tr>
+                    <tr>
+                        <td  class="time"><br>第六节<br>19:00-20:50<br><br></td><td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                    </tr>
+                    <tr>
+                        <td  class="time"><br>第七节<br>21:00-21:50<br><br></td><td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                        <td class="t_row_2"></td><td class="t_row_2"></td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+</html>
+
+<script>
+
+</script>

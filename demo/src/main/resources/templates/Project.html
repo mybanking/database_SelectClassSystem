@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Management</title>
+    <link rel="stylesheet" href="../css/project.css" type="text/css">
+    <script type="text/javascript" src="../js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="../js/project.js"></script>
+
+    <script>
+        window.onload=function () {
+
+            data = [{//返回本学年所有项目
+                   number:"1",
+                   name:"微型发动机",
+                   p_result:"实物作品",
+                  teacher:"孔德焱",
+                  academy:"software",
+                  stu_numbers:"4",
+
+            },
+                {
+                    number:"1",
+                    name:"微型发动机",
+                    p_result:"实物作品",
+                    teacher:"孔德焱",
+                    academy:"software",
+                    stu_numbers:"4",
+
+                }
+
+          ];
+
+            data_1 = [{
+                year: "2019",//此学生所有年份降序排列
+                semster: "Spring"
+            },
+                {
+                    year: "2018",
+                    semster: "Fall"
+                }];
+            var select=$("#year");
+            for (var j = 0; j < data_1.length; j++) {
+                //排序，从降序
+                //alert(data_1[j].year);
+                select.append("<option style='font-size: 1em' value=" + j + ">" + data_1[j].year + "/" + data_1[j].semster + "</option>");
+            }//选择下拉框
+            select.val(0);
+
+          //  auto_create_table_classroom(data);
+            var json= {Id: $.getUrlParam("id"), type: $.getUrlParam("type")};
+            $.ajax({
+                type: "post",
+                url: "/load_classroom_year",
+                data: JSON.stringify(json),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (data_1, status) {
+                    //追加下拉框
+                    for (var j = 0; j < data_1.length; j++) {
+                        //排序，从降序
+                        //alert(data_1[j].year);
+                        select.append("<option style='font-size: 1em' value=" + j + ">" + data_1[j].year + "/" + data_1[j].semster + "</option>");
+                    }//选择下拉框
+                    select.val(0);
+                }
+            });
+
+            var json = {Id: $.getUrlParam("id"), type: $.getUrlParam("type")};
+            $.ajax({
+                type: "post",
+                url: "/load_project",
+                data: JSON.stringify(json),
+                dataType: "json",
+                contentType: "application/json",
+                success: function (data, status) {
+                    auto_create_table_classroom(data);
+                }
+            });
+        }
+    </script>
+
+</head>
+<body>
+
+<!--顶部开始-->
+<div id="c" class="">
+
+    <div id="head">
+        <div id="home_head">
+            <p id="home_head_name">17301066 孔德焱</p>
+        </div>
+        <div id="home_search" >
+            <ul>
+                <li><img src="../static/images/logo.png" height="50px" style="padding: 2px;"></li>
+                <li><a class="s" href="Home.html">主页</a></li>
+                <li><a class="s" href="course.html">课程</a></li>
+                <li><a class="s" href="select_course.html">选课系统</a></li>
+                <li><a class="s" href="Classroom.html">教室资源</a></li>
+                <li><a class="s" href="Project.html">项目管理</a></li>
+                <li><a class="s" href="Award.html">奖学金申请</a></li>
+                <li><a class="s" href="Information.html">个人信息</a></li>
+            </ul>
+        </div>
+
+    </div>
+    <hr>
+
+    <div id="l"  class="">
+        <div id="l_1"  class="">
+            <div id="l_1_1" class="">
+                &nbsp
+                <b id="l_1_1_1">Welcome,Tom </b>
+            </div>
+            <div id="l_1_2" class="">
+                &nbsp
+                <b id="l_1_2_1">Process management</b> <hr>
+                <u id="l_1_2_2">
+                    <li > <a class="l_select"  href="#" >项目选择</a></li> <hr>
+                    <li ><a class="l_select"  href="Project_Approval.html" >项目申报</a></li><hr>
+                    <li ><a class="l_select"  href="project_process.html" >项目进程</a></li><hr>
+                </u>
+            </div>
+        </div>
+    </div>
+    <div id="r"  class="">
+        <div id="r_1"  class="">
+            <div id="r_1_1" class="">
+                &nbsp
+                <b id="r_1_1_1">项目选择</b>
+
+            </div>
+            <div id="r_1_2" class="">
+                <h class="t_row_1"> 项目名称:</h> <input class="t_row_1" type="text"  id="project_name"/>
+                &emsp;&emsp;
+                <h class="t_row_1">指导老师:</h> <input class="t_row_1" type="text" id="teacher" />
+                &emsp;&emsp;
+                <h class="t_row_1">Academy:</h>
+                <select style="font-size: 0.5em" id="Academy">
+                    <option style="font-size: 1em" value="0"> 全部</option>
+                    <option style="font-size: 1em" value="1"> 软件学院</option>
+                    <option style="font-size:1em"  value="2"> 运输学院</option>
+                    <option style="font-size: 1em"  value="3">电信学院</option>
+                    <option  style="font-size: 1em" value="4"> 计算机学院</option>
+                </select>&emsp;&emsp;<br>
+                <h class="t_row_1">Project Year</h>
+                <select style="font-size: 0.5em" id="year">
+                </select>&emsp;
+                <input type="button"  value="Search" id="search"  onclick="search_Project();"/>
+            </div>
+            <div id="r_1_3" class="">
+
+                <table  id="senfe";width="100%"  border="1"  cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+                    <thead>
+                    <tr >
+                        <td class="t_row_1">编号</td>
+                        <td class="t_row_1" >项目名称</td>
+                        <td class="t_row_1"   >项目预期成果</td>
+                        <td class="t_row_1" >指导老师</td>
+                        <td class="t_row_1"  >所属学院</td>
+                        <td class="t_row_1">最大人数</td>
+                        <td class="t_row_1" >操作</td>
+                    </tr>
+                    </thead>
+                    <tbody id="group_one">
+                    </tbody>
+                </table>
+                <div id="r_4">
+                    <button class="a_1" type="button" id="firstPage">首 页</button>
+                    <button class="a_1"  type="button" id="prePage">上一页</button>
+                    <button class="a_1" type="button" id="nextPage">下一页</button>
+                    <button class="a_1" type="button" id="lastPage">末 页</button>
+                    第<h id="currentPage" class="a_1" ></h>页/共<h id="total_page" class="a_1"></h>页
+                    &nbsp&nbsp第
+                    <input class="a_1" id="aim_page" value="1" style="width:20px"/>&nbsp页
+                    <button class="a_1" type="button" id="jump">跳转</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="tm">
+
+</div>
+<div id="dialog_1">
+    <div id="form_1">
+    <form name="Person" height = "350" width = "400" onsubmit="return onSmText();" >
+        <br> <br>
+        <h4>项目申报</h4>  <br>
+        <div id="p_1">
+            <b class="l_select">项目名称 ：</b> <b class="l_select" id="p_name"></b>  <br>
+            <b class="l_select">项目预期成果：</b>  <b class="l_select"  id="p_result"></b>  <br>
+            <b class="l_select">指导老师：</b>  <b class="l_select" id="p_teacher"></b> <br>
+
+        </div>
+        <br>
+       <div id="p_2" >
+           <b class="l_select">学号:</b> <input id="number" style="width: 100px;height:15px;font-size: 0.5em" type="text"/>&nbsp&nbsp <b id="number_1" style="width: 50px; display: none;font-size: 0.5em;color: #b31b1b">必填</b><br>
+           <b class="l_select">姓名:</b> <input id="name" style="width: 100px;height: 15px;font-size: 0.5em"type="text"/> &nbsp&nbsp<b  id="name_1" style="width:50px;display: none;font-size: 0.5em;color: #b31b1b">必填</b><br>
+           <b class="l_select">性别：</b>&nbsp<input id="sex" type="radio" name="sex" value="m"><b class="l_select"/>男</b> <input type="radio" name="sex" value="f"><b class="l_select">女</b>&nbsp&nbsp<b id="sex_1" style="width: 50px;display: none;font-size: 0.5em;color: #b31b1b">必选</b><br>
+           <b class="l_select">手机号:</b> <input id="tel" style="width: 100px;height: 15px;font-size: 0.5em"type="tel"/> &nbsp&nbsp<b id="tel_1" style="width: 50px;display: none;font-size: 0.5em;color: #b31b1b">必填</b><br>
+           <b class="l_select"> 职位：</b> <input id="sf"  type="radio" name="sf" value="leader"> <b class="l_select"/> 组长</b> <input type="radio" name="sf" value="normal"><b class="l_select"> 组员</b> &nbsp&nbsp&nbsp<b id="sf_1" class="" style="width: 50px;display: none;font-size: 0.5em;color: #b31b1b">必选</b><br>
+
+       </div>   <br>
+        <input type = "submit" value = "提交" class="sumit_1">&nbsp&nbsp&nbsp
+        <input type = "reset" value = "取消"  class="sumit_1" onclick="ok();">
+        </br>
+
+    </form>
+    </div>
+</div>
+
+</body>
+</html>
+
